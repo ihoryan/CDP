@@ -40,7 +40,7 @@
   var slice = array.slice;
   var splice = array.splice;
 
-  // Current version of the library. Keep in sync with `package.json`.
+  // Current version of the library. Keep in sync with `index.json`.
   Backbone.VERSION = '1.1.2';
 
   // For Backbone's purposes, jQuery, Zepto, Ender, or My Library (kidding) owns
