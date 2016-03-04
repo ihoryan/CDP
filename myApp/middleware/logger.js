@@ -1,6 +1,6 @@
-function logger(err, req, res, next) {
+function logger(req, res, next) {
     console.log(req.method + ' ' + req.url + ' - ' + req.connection.remoteAddress);
-    next(err);
+    next();
 }
 
 module.exports = logger;
