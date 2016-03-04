@@ -16,18 +16,22 @@ class App {
     }
 
     runNextMiddleware(req, res, idx) {
-        if (idx >= this.middlewares.length) {
+        if (idx === this.middlewares.length) {
             return res.end();
         }
 
         let mw = this.middlewares[idx];
-        mw(err, req, res, this.runNextMiddleware.bind(this, req, res, idx + 1));
+        let fn = typeof mw === 'function' ? mw : mw.handle.bind(mw);
+
+        fn(req, res, this.runNextMiddleware.bind(this, req, res, idx + 1));
     }
 
     listen(port) {
         let server = http.createServer();
 
         server.listen(port);
+        console.log('Server is running on ' + port + ' port');
+
         server.on('request', (req, res) => {
             this.handle(req, res);
         });
