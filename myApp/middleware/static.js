@@ -39,7 +39,6 @@ function statics(req, res, next) {
                 res.write(data, "utf8");
                 res.end();
                 next();
-                console.log(filename, ' OK!');
             });
         });
     } else {
