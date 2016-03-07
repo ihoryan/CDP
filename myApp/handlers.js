@@ -10,7 +10,6 @@ module.exports = {
                 page => {
                     res.setHeader("Content-Type", "text/html");
                     res.write(page);
-                    res.end();
                     next();
                 },
                 err => {
@@ -22,26 +21,44 @@ module.exports = {
 
     favicon(req, res, next) {
         res.statusCode = 404;
-        res.end();
         next();
     },
 
     usersCollection(req, res, next) {
         db.getCollection((err, data) => {
+
+            if (err) {
+                console.log(err);
+                return;
+            }
+
             res.setHeader("Content-type", "application/json");
             res.write(JSON.stringify(data));
-            res.end();
+            next();
+        });
+    },
+
+    getUser(req, res, next) {
+        db.getById(req.pathKeys.id, (err, model) => {
+
+            if (err) {
+                console.log(err);
+                return;
+            }
+
+            res.setHeader("Content-type", "application/json");
+            res.write(JSON.stringify(model));
             next();
         });
     },
 
     addUser(req, res, next) {
         let data = req.body;
+
         if (data) {
             db.create(data, (err, model) => {
                 res.setHeader("Content-type", "application/json");
                 res.write(JSON.stringify(model));
-                res.end();
                 next();
             });
         } else {
@@ -49,7 +66,32 @@ module.exports = {
         }
     },
 
+    updateUser(req, res, next) {
+
+        if (req.body) {
+            db.update(req.body, function(err, model){
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+
+                res.write(JSON.stringify(model));
+                next()
+            })
+
+        }
+
+    },
+
     removeUser(req, res, next) {
-        console.log(req);
+        db.remove(req.pathKeys.id, function(err){
+            if (err) {
+                console.log(err);
+                return;
+            }
+            res.statusCode = 200;
+            next();
+        });
+
     }
 };
