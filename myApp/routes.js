@@ -8,6 +8,8 @@ module.exports.setup = () => {
     /*API*/
 
     router.get('/api/users', handlers.usersCollection);
+    router.get('/api/users/:id', handlers.getUser);
     router.post('/api/users', handlers.addUser);
-    router.delete('/api/users/:id', handlers.removeUser);
+    router.put('/api/users/:id', handlers.updateUser);
+    router.delete('/api/users/:id/', handlers.removeUser);
 };
