@@ -5,7 +5,7 @@ module.exports.setup = () => {
     router.get('/', handlers.indexHtml);
     router.get('/favicon.ico', handlers.favicon);
 
-    /*API*/
+    /*REST API*/
 
     router.get('/api/users', handlers.usersCollection);
     router.get('/api/users/:id', handlers.getUser);
