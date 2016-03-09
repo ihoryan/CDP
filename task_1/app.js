@@ -1,8 +1,8 @@
 "use strict";
 
-const App = require('./myApp/app');
+const App = require('./myApp/App');
 const logger = require('./myApp/middleware/logger');
-const config = require('./config');
+const config = require('./config/index');
 const statics = require('./myApp/middleware/static');
 const router = require('./myApp/middleware/router');
 const routes = require('./myApp/routes').setup();
